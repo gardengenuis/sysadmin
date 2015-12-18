@@ -1,0 +1,155 @@
+/*==============================================================*/
+/* DBMS name:      ORACLE Version 10gR2                         */
+/* Created on:     2014/8/25 16:03:48                           */
+/*==============================================================*/
+
+
+alter table SYS_ROLE_RES_OPER
+   drop constraint FK_SYS_ROLE_FK_OPERAT_SYS_OPER;
+
+alter table SYS_ROLE_RES_OPER
+   drop constraint FK_SYS_ROLE_FK_RESOUR_SYS_RESO;
+
+alter table SYS_ROLE_RES_OPER
+   drop constraint FK_SYS_ROLE_FK_ROLE2_SYS_ROLE;
+
+alter table SYS_USER_DEPARTMENT
+   drop constraint FK_SYS_USER_FK_DEPART_SYS_DEPA;
+
+alter table SYS_USER_DEPARTMENT
+   drop constraint FK_SYS_USER_FK_USER1_SYS_USER;
+
+alter table SYS_USER_ROLE
+   drop constraint FK_SYS_USER_FK_ROLE1_SYS_ROLE;
+
+alter table SYS_USER_ROLE
+   drop constraint FK_SYS_USER_FK_USER2_SYS_USER;
+
+drop table SYS_DEPARTMENT cascade constraints;
+
+drop table SYS_OPERATION cascade constraints;
+
+drop table SYS_RESOURCE cascade constraints;
+
+drop table SYS_ROLE cascade constraints;
+
+drop table SYS_ROLE_RES_OPER cascade constraints;
+
+drop table SYS_USER cascade constraints;
+
+drop table SYS_USER_DEPARTMENT cascade constraints;
+
+drop table SYS_USER_ROLE cascade constraints;
+
+/*==============================================================*/
+/* Table: SYS_DEPARTMENT                                        */
+/*==============================================================*/
+create table SYS_DEPARTMENT  (
+   DEPART_ID            INTEGER                         not null,
+   DEPART_CODE          VARCHAR2(100),
+   DEPART_NAME          VARCHAR2(200),
+   PARENT_ID            INTEGER,
+   STATUS               VARCHAR2(10),
+   constraint PK_SYS_DEPARTMENT primary key (DEPART_ID)
+);
+
+/*==============================================================*/
+/* Table: SYS_OPERATION                                         */
+/*==============================================================*/
+create table SYS_OPERATION  (
+   OPERATION_ID         INTEGER                         not null,
+   OPERATION_CODE       VARCHAR2(100),
+   OPERATION_NAME       VARCHAR2(200),
+   STATUS               VARCHAR2(10),
+   constraint PK_SYS_OPERATION primary key (OPERATION_ID)
+);
+
+/*==============================================================*/
+/* Table: SYS_RESOURCE                                          */
+/*==============================================================*/
+create table SYS_RESOURCE  (
+   RESOURCE_ID          INTEGER                         not null,
+   RESOURCE_TYPE        VARCHAR2(10),
+   RESOURCE_NAME        VARCHAR2(200),
+   RESOURCE_URL         VARCHAR2(1024),
+   PARENT_ID            INTEGER,
+   STATUS               VARCHAR2(10),
+   constraint PK_SYS_RESOURCE primary key (RESOURCE_ID)
+);
+
+/*==============================================================*/
+/* Table: SYS_ROLE                                              */
+/*==============================================================*/
+create table SYS_ROLE  (
+   ROLE_ID              INTEGER                         not null,
+   ROLE_CODE            VARCHAR2(100),
+   ROLE_NAME            VARCHAR2(200),
+   STATUS               VARCHAR2(10),
+   constraint PK_SYS_ROLE primary key (ROLE_ID)
+);
+
+/*==============================================================*/
+/* Table: SYS_ROLE_RES_OPER                                     */
+/*==============================================================*/
+create table SYS_ROLE_RES_OPER  (
+   ROLE_ID              INTEGER,
+   RESOURCE_ID          INTEGER,
+   OPERATION_ID         INTEGER
+);
+
+/*==============================================================*/
+/* Table: SYS_USER                                              */
+/*==============================================================*/
+create table SYS_USER  (
+   USER_ID              INTEGER                         not null,
+   USER_CODE            VARCHAR2(100),
+   USER_NAME            VARCHAR2(200),
+   PASSWORD             VARCHAR2(200),
+   STATUS               VARCHAR2(10),
+   constraint PK_SYS_USER primary key (USER_ID)
+);
+
+/*==============================================================*/
+/* Table: SYS_USER_DEPARTMENT                                   */
+/*==============================================================*/
+create table SYS_USER_DEPARTMENT  (
+   DEPART_ID            INTEGER,
+   USER_ID              INTEGER
+);
+
+/*==============================================================*/
+/* Table: SYS_USER_ROLE                                         */
+/*==============================================================*/
+create table SYS_USER_ROLE  (
+   USER_ID              INTEGER,
+   ROLE_ID              INTEGER
+);
+
+alter table SYS_ROLE_RES_OPER
+   add constraint FK_SYS_ROLE_FK_OPERAT_SYS_OPER foreign key (OPERATION_ID)
+      references SYS_OPERATION (OPERATION_ID);
+
+alter table SYS_ROLE_RES_OPER
+   add constraint FK_SYS_ROLE_FK_RESOUR_SYS_RESO foreign key (RESOURCE_ID)
+      references SYS_RESOURCE (RESOURCE_ID);
+
+alter table SYS_ROLE_RES_OPER
+   add constraint FK_SYS_ROLE_FK_ROLE2_SYS_ROLE foreign key (ROLE_ID)
+      references SYS_ROLE (ROLE_ID);
+
+alter table SYS_USER_DEPARTMENT
+   add constraint FK_SYS_USER_FK_DEPART_SYS_DEPA foreign key (DEPART_ID)
+      references SYS_DEPARTMENT (DEPART_ID);
+
+alter table SYS_USER_DEPARTMENT
+   add constraint FK_SYS_USER_FK_USER1_SYS_USER foreign key (USER_ID)
+      references SYS_USER (USER_ID);
+
+alter table SYS_USER_ROLE
+   add constraint FK_SYS_USER_FK_ROLE1_SYS_ROLE foreign key (ROLE_ID)
+      references SYS_ROLE (ROLE_ID);
+
+alter table SYS_USER_ROLE
+   add constraint FK_SYS_USER_FK_USER2_SYS_USER foreign key (USER_ID)
+      references SYS_USER (USER_ID);
+
