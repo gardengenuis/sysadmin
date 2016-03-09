@@ -181,4 +181,11 @@ public class SysUser implements Serializable {
 		this.status = status;
 	}	
 		
+	public boolean isValid() {
+		if( "1".equals(this.status)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
