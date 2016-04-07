@@ -69,4 +69,10 @@ public interface ISysResourceDAO extends IDAO<SysResource> {
 	 * @return
 	 */
 	public List<SysResource> getSysResourceByUserId(Long userId);
+
+	/**
+	 * @param roleId
+	 * @return
+	 */
+	public List<SysResource> getSysResourceByRoleId(Long roleId);
 }

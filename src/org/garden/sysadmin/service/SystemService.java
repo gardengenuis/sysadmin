@@ -118,6 +118,17 @@ public class SystemService {
 		return sysUser;
 	}
 	
+	public List<SysResource> getSysResourceByRoleId(Long roleId) {
+		return sysResourceDAO.getSysResourceByRoleId(roleId);
+	}
+	
+	public void removeAndSaveResourceRoleByRoleId(Long roleId, List<SysRoleResOper> list) {
+		sysRoleResOperDAO.deleteSysRoleResOperByRoleId(new Long[] {roleId});
+		for ( SysRoleResOper sysRoleResOper : list) {
+			sysRoleResOperDAO.save(sysRoleResOper);
+		}
+	}
+	
 	public SysDictValue getFieldValueByFieldCode(String fieldCode, String fieldValue) {
 		return sysDictFieldDAO.findFieldValueByFieldCode(fieldCode, fieldValue);
 	}

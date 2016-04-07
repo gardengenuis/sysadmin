@@ -96,7 +96,7 @@ public class SysResourceDAO extends DAO<SysResource> implements ISysResourceDAO 
 	@Override
 	public List<SysResource> findAllResourcesWithRoles() {
 		String hql = "select distinct c, b from " + SysRoleResOper.class.getName() + " a, " + SysRole.class.getName() + " b, " + SysResource.class.getName() 
-				+ " c where a.sysRoleResOper.roleId=b.roleId and a.sysRoleResOper.resourceId=c.resourceId  order by c.orderNum";
+				+ " c where a.sysRoleResOper.roleId=b.roleId and a.sysRoleResOper.resourceId=c.resourceId order by c.orderNum";
 		
 		Query query = sessionFactory.getCurrentSession().createQuery( hql);
 		List<?> list = query.list();
@@ -186,6 +186,23 @@ public class SysResourceDAO extends DAO<SysResource> implements ISysResourceDAO 
 				+ " where b.sysUserRole.userId=:userId and b.sysUserRole.roleId=a.sysRoleResOper.roleId and t.resourceId=a.sysRoleResOper.resourceId";
 		
 		keyValue.put("userId", userId);
+		states.add(keyValue);
+		
+		return findByHql(hql, states);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.garden.sysadmin.dao.ISysResourceDAO#getSysResourceByRoleId(java.lang.Long)
+	 */
+	@Override
+	public List<SysResource> getSysResourceByRoleId(Long roleId) {
+		List<Map<String, Object>> states = new ArrayList<Map<String,Object>>();
+		Map<String, Object> keyValue = new HashMap<String, Object>();
+		
+		String hql = "select t from " + SysRoleResOper.class.getName() + " a, " + SysResource.class.getName() + " t"
+				+ " where a.sysRoleResOper.roleId=:roleId and t.resourceId=a.sysRoleResOper.resourceId";
+		
+		keyValue.put("roleId", roleId);
 		states.add(keyValue);
 		
 		return findByHql(hql, states);

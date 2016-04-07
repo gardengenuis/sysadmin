@@ -92,5 +92,4 @@ public class SysRoleResOperDAO extends DAO<SysRoleResOper> implements ISysRoleRe
 		
 		excuteHql(hql, states);	
 	}
-	
 }
