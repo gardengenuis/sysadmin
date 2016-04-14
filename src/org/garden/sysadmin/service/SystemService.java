@@ -136,6 +136,10 @@ public class SystemService {
 		return sysUserDAO.findAll(SysUser.class);
 	}
 	
+	public List<SysUser> getSysUsersByDeptIds(Long[] ids) {
+		return sysUserDAO.getSysUsersByDeptIds(ids);
+	}
+	
 	public List<SysDictValue> getExceptDictValueList(Long dictId, String value) {
 		return sysDictValueDAO.getExceptDictValueList( dictId, value);
 	}
@@ -166,6 +170,10 @@ public class SystemService {
 	
 	public List<SysDepartment> getDepartments() {
 		return sysDepartmentDAO.findAll(SysDepartment.class);
+	}
+	
+	public List<SysDepartment> getDepartments(Long[] ids) {
+		return sysDepartmentDAO.getDepartmentByIds(ids);
 	}
 	
 	public List<SysRole> getSysRoleByUserCode( String userCode) {

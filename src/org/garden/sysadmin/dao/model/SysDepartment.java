@@ -50,10 +50,6 @@ import javax.persistence.Table;
 @Table(name="SYS_DEPARTMENT" )
 public class SysDepartment implements Serializable {
 	
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8430414329740172892L;
 
 

@@ -29,6 +29,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */package org.garden.sysadmin.dao;
 
+import java.util.List;
+
 import org.garden.dao.IDAO;
 import org.garden.sysadmin.dao.model.SysUser;
 
@@ -45,4 +47,10 @@ public interface ISysUserDAO extends IDAO<SysUser> {
 	 * @param userIds
 	 */
 	public void deleteSysUserById(Long[] userIds);
+
+	/**
+	 * @param ids
+	 * @return
+	 */
+	public List<SysUser> getSysUsersByDeptIds(Long[] ids);
 }

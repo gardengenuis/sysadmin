@@ -149,5 +149,19 @@ public class SysDepartmentDAO extends DAO<SysDepartment> implements ISysDepartme
 			return depts.get(0);
 		}
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see org.garden.sysadmin.dao.ISysDepartmentDAO#getDepartmentByIds(java.lang.Long[])
+	 */
+	@Override
+	public List<SysDepartment> getDepartmentByIds(Long[] ids) {
+		String hql = "from " + SysDepartment.class.getName() + " t where t.departId in (:ids) order by t.departId";
+		
+		List<Map<String, Object>> states = new ArrayList<Map<String,Object>>();
+		Map<String, Object> keyValue = new HashMap<String, Object>();
+		keyValue.put("ids", Arrays.asList(ids));
+		states.add(keyValue);
+		
+		return findByHql(hql, states);
+	}
 }

@@ -76,4 +76,10 @@ public interface ISysDepartmentDAO extends IDAO<SysDepartment> {
 	 * @return
 	 */
 	public SysDepartment getDepartmentByCode(String deptCode);
+
+	/**
+	 * @param ids
+	 * @return
+	 */
+	public List<SysDepartment> getDepartmentByIds(Long[] ids);
 }
