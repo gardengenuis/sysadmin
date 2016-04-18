@@ -29,6 +29,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */package org.garden.sysadmin.dao.impl.hibernate;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -95,5 +96,43 @@ public class SysRoleDAO extends DAO<SysRole> implements ISysRoleDAO {
 		
 		return findByHql(hql, states);
 	}
+
+	/* (non-Javadoc)
+	 * @see org.garden.sysadmin.dao.ISysRoleDAO#getSysRolesByDepartIds(java.lang.Long[])
+	 */
+	@Override
+	public List<SysRole> getSysRolesByDepartIds(Long[] ids) {
+		List<SysRole> rlt = new ArrayList<SysRole>();
+		String sql = "select t.ROLE_ID, t.ROLE_CODE, t.ROLE_NAME, t.STATUS from SYS_ROLE t left join SYS_ROLE_DEPARTMENT a on a.ROLE_ID=t.ROLE_ID WHERE a.DEPART_ID in (";
+		String idStr = "";
+		for( int i=0; i<ids.length; i++) {
+			idStr += ids[i];
+			if( i < ids.length - 1) {
+				idStr += ",";
+			}
+		}
+		sql += idStr + ") OR a.DEPART_ID IS NULL";
+		
+		List list = findBySql(sql);
+		
+		for( Object obj : list) {
+			Object[] objs = (Object[]) obj;
+			BigInteger roleId = (BigInteger)objs[0];
+			String roleCode = (String) objs[1];
+			String roleName = (String) objs[2];
+			String status = (String) objs[3];
+			
+			SysRole role = new SysRole();
+			role.setRoleId(roleId.longValue());
+			role.setRoleCode(roleCode);
+			role.setRoleName(roleName);
+			role.setStatus(status);
+			
+			rlt.add(role);
+		}
+		
+		return rlt;
+	}
+	
 	
 }

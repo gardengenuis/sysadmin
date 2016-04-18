@@ -164,6 +164,10 @@ public class SystemService {
 		return sysResourceDAO.findAll(SysResource.class);
 	}
 	
+	public List<SysRole> getSysRolesByDepartIds(Long[] ids) {
+		return sysRoleDAO.getSysRolesByDepartIds(ids);
+	}
+	
 	public List<SysResource> getSysResources(Pager pager) {
 		return sysResourceDAO.findAll(SysResource.class, pager);
 	}

@@ -58,4 +58,10 @@ public interface ISysRoleDAO extends IDAO<SysRole> {
 	 * @return
 	 */
 	public List<SysRole> findByResourceId(Long resourceId);
+
+	/**
+	 * @param ids
+	 * @return
+	 */
+	public List<SysRole> getSysRolesByDepartIds(Long[] ids);
 }
