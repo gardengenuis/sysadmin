@@ -38,6 +38,7 @@ import java.util.Map;
 import org.garden.dao.hibernate.DAO;
 import org.garden.sysadmin.dao.ISysDepartmentDAO;
 import org.garden.sysadmin.dao.model.SysDepartment;
+import org.garden.sysadmin.dao.model.SysRoleDepartment;
 import org.garden.sysadmin.dao.model.SysUser;
 import org.garden.sysadmin.dao.model.SysUserDepartment;
 
@@ -160,6 +161,21 @@ public class SysDepartmentDAO extends DAO<SysDepartment> implements ISysDepartme
 		List<Map<String, Object>> states = new ArrayList<Map<String,Object>>();
 		Map<String, Object> keyValue = new HashMap<String, Object>();
 		keyValue.put("ids", Arrays.asList(ids));
+		states.add(keyValue);
+		
+		return findByHql(hql, states);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.garden.sysadmin.dao.ISysDepartmentDAO#findByRoleId(java.lang.Long)
+	 */
+	@Override
+	public List<SysDepartment> findByRoleId(Long roleId) {
+		String hql = "select a from " + SysDepartment.class.getName() + " a, " + SysRoleDepartment.class.getName() + " b where a.departId=b.sysRoleDepartment.departId and b.sysRoleDepartment.roleId = :roleId";
+		
+		List<Map<String, Object>> states = new ArrayList<Map<String,Object>>();
+		Map<String, Object> keyValue = new HashMap<String, Object>();
+		keyValue.put("roleId", roleId);
 		states.add(keyValue);
 		
 		return findByHql(hql, states);

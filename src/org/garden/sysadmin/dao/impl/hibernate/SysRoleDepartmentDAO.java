@@ -30,6 +30,11 @@
  */
 package org.garden.sysadmin.dao.impl.hibernate;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.garden.dao.hibernate.DAO;
 import org.garden.sysadmin.dao.ISysRoleDepartmentDAO;
 import org.garden.sysadmin.dao.model.SysRoleDepartment;
@@ -42,5 +47,21 @@ import org.garden.sysadmin.dao.model.SysRoleDepartment;
  * create on Tue Nov 11 23:34:50 CST 2014
  */
 public class SysRoleDepartmentDAO extends DAO<SysRoleDepartment> implements ISysRoleDepartmentDAO {
+
+	/* (non-Javadoc)
+	 * @see org.garden.sysadmin.dao.ISysRoleDepartmentDAO#deleteByRoleId(java.lang.Long)
+	 */
+	@Override
+	public void deleteByRoleId(Long roleId) {
+		String hql = "delete from " + SysRoleDepartment.class.getName() + " t where t.sysRoleDepartment.roleId=:roleId";
+		
+		List<Map<String, Object>> states = new ArrayList<Map<String,Object>>();
+		Map<String, Object> keyValue = new HashMap<String, Object>();
+		keyValue.put("roleId", roleId);
+		states.add(keyValue);
+		
+		excuteHql(hql, states);
+		
+	}
 	
 }

@@ -82,4 +82,10 @@ public interface ISysDepartmentDAO extends IDAO<SysDepartment> {
 	 * @return
 	 */
 	public List<SysDepartment> getDepartmentByIds(Long[] ids);
+
+	/**
+	 * @param roleId
+	 * @return
+	 */
+	public List<SysDepartment> findByRoleId(Long roleId);
 }

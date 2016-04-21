@@ -40,4 +40,9 @@ import org.garden.sysadmin.dao.model.SysRoleDepartment;
  * create on Tue Nov 11 23:34:47 CST 2014
  */
 public interface ISysRoleDepartmentDAO extends IDAO<SysRoleDepartment> {
+
+	/**
+	 * @param roleId
+	 */
+	public void deleteByRoleId(Long roleId);
 }

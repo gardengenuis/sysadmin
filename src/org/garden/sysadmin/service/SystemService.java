@@ -42,6 +42,7 @@ import org.garden.sysadmin.dao.ISysDictValueDAO;
 import org.garden.sysadmin.dao.ISysOperationDAO;
 import org.garden.sysadmin.dao.ISysResourceDAO;
 import org.garden.sysadmin.dao.ISysRoleDAO;
+import org.garden.sysadmin.dao.ISysRoleDepartmentDAO;
 import org.garden.sysadmin.dao.ISysRoleResOperDAO;
 import org.garden.sysadmin.dao.ISysUserDAO;
 import org.garden.sysadmin.dao.ISysUserDepartmentDAO;
@@ -50,6 +51,7 @@ import org.garden.sysadmin.dao.model.SysDepartment;
 import org.garden.sysadmin.dao.model.SysDictValue;
 import org.garden.sysadmin.dao.model.SysResource;
 import org.garden.sysadmin.dao.model.SysRole;
+import org.garden.sysadmin.dao.model.SysRoleDepartment;
 import org.garden.sysadmin.dao.model.SysRoleResOper;
 import org.garden.sysadmin.dao.model.SysUser;
 import org.garden.sysadmin.dao.model.SysUserDepartment;
@@ -76,7 +78,12 @@ public class SystemService {
 	private ISysUserRoleDAO sysUserRoleDAO;
 	private ISysDictFieldDAO sysDictFieldDAO;
 	private ISysDictValueDAO sysDictValueDAO;
+	private ISysRoleDepartmentDAO sysRoleDepartmentDAO;
 	
+	public void setSysRoleDepartmentDAO(ISysRoleDepartmentDAO sysRoleDepartmentDAO) {
+		this.sysRoleDepartmentDAO = sysRoleDepartmentDAO;
+	}
+
 	public void setSysDictValueDAO(ISysDictValueDAO sysDictValueDAO) {
 		this.sysDictValueDAO = sysDictValueDAO;
 	}
@@ -129,6 +136,9 @@ public class SystemService {
 		}
 	}
 	
+	public List<SysDepartment> getDepartmentByRoleId(Long roleId) {
+		return sysDepartmentDAO.findByRoleId(roleId);
+	}
 	public SysDictValue getFieldValueByFieldCode(String fieldCode, String fieldValue) {
 		return sysDictFieldDAO.findFieldValueByFieldCode(fieldCode, fieldValue);
 	}
@@ -204,6 +214,13 @@ public class SystemService {
 		sysUserDepartmentDAO.deleteByUserId(userId);
 		for ( SysUserDepartment sysUserDepartment : sysUserDepartments) {
 			sysUserDepartmentDAO.save(sysUserDepartment);
+		}
+	}
+	
+	public void removeAndSaveRoleDepartment( Long roleId, List<SysRoleDepartment> sysRoleDepartments) {
+		sysRoleDepartmentDAO.deleteByRoleId(roleId);
+		for ( SysRoleDepartment sysRoleDepartment : sysRoleDepartments) {
+			sysRoleDepartmentDAO.save(sysRoleDepartment);
 		}
 	}
 	

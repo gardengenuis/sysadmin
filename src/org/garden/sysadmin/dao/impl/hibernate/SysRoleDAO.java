@@ -133,6 +133,5 @@ public class SysRoleDAO extends DAO<SysRole> implements ISysRoleDAO {
 		
 		return rlt;
 	}
-	
-	
+
 }
