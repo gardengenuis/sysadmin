@@ -80,5 +80,21 @@ public class SysDictValueDAO extends DAO<SysDictValue> implements ISysDictValueD
 		
 		return findByHql(hql, states);
 	}
+
+	/* (non-Javadoc)
+	 * @see org.garden.sysadmin.dao.ISysDictValueDAO#getCurrentCity(java.lang.Long, java.lang.String)
+	 */
+	@Override
+	public List<SysDictValue> getDictValueByName(Long dictId, String name) {
+		String hql = "from " + SysDictValue.class.getName() + " t where t.dictId=:dictId and t.valueName like :name";
+		
+		List<Map<String, Object>> states = new ArrayList<Map<String,Object>>();
+		Map<String, Object> keyValue = new HashMap<String, Object>();
+		keyValue.put("dictId", dictId);
+		keyValue.put("name", "%" + name + "%");
+		states.add(keyValue);
+		
+		return findByHql(hql, states);
+	}
 	
 }

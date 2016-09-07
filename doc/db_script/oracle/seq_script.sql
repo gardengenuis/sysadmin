@@ -1,4 +1,3 @@
-
 drop sequence HIBERNATE_SEQUENCE;
 create sequence HIBERNATE_SEQUENCE
 minvalue 1000

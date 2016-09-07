@@ -31,7 +31,8 @@ create table SYS_DEPARTMENT
    PARENT_ID            bigint,
    STATUS               varchar(10),
    ORDER_NUM            bigint,
-   primary key (DEPART_ID)
+   primary key (DEPART_ID),
+   unique key AK_SYS_DEPARTMENT_CODE (DEPART_CODE)
 );
 
 /*==============================================================*/
@@ -43,7 +44,8 @@ create table SYS_DICT_FIELD
    DICT_NAME            varchar(200),
    DICT_CODE            varchar(200),
    STATUS               varchar(10),
-   primary key (DICT_ID)
+   primary key (DICT_ID),
+   unique key AK_SYS_DICT_FIELD_CODE (DICT_CODE)
 );
 
 /*==============================================================*/
@@ -51,13 +53,14 @@ create table SYS_DICT_FIELD
 /*==============================================================*/
 create table SYS_DICT_VALUE
 (
-   VALUE_ID             bigint not null,
+   VALUE_ID             bigint not null auto_increment,
    DICT_ID              bigint,
    VALUE_NAME           varchar(400),
-   VALUE                varchar(1000),
+   VALUE                varchar(100),
    ORDER_NUM            bigint,
    STATUS               varchar(10),
-   primary key (VALUE_ID)
+   primary key (VALUE_ID),
+   unique key AK_SYS_DICT_VALUE_DICT_ID_VALUE (DICT_ID, VALUE)
 );
 
 /*==============================================================*/
@@ -69,7 +72,8 @@ create table SYS_OPERATION
    OPERATION_CODE       varchar(100),
    OPERATION_NAME       varchar(200),
    STATUS               varchar(10),
-   primary key (OPERATION_ID)
+   primary key (OPERATION_ID),
+   unique key AK_SYS_OPERATION_CODE (OPERATION_CODE)
 );
 
 /*==============================================================*/
@@ -96,7 +100,8 @@ create table SYS_ROLE
    ROLE_CODE            varchar(100),
    ROLE_NAME            varchar(200),
    STATUS               varchar(10),
-   primary key (ROLE_ID)
+   primary key (ROLE_ID),
+   unique key AK_SYS_ROLE_CODE (ROLE_CODE)
 );
 
 /*==============================================================*/
@@ -106,7 +111,7 @@ create table SYS_ROLE_DEPARTMENT
 (
    DEPART_ID            bigint,
    ROLE_ID              bigint,
-   key AK_PK_ROLE_DEP (DEPART_ID, ROLE_ID)
+   unique key AK_SYS_ROLE_DEPARTMENT (DEPART_ID, ROLE_ID)
 );
 
 /*==============================================================*/
@@ -117,7 +122,7 @@ create table SYS_ROLE_RES_OPER
    ROLE_ID              bigint,
    RESOURCE_ID          bigint,
    OPERATION_ID         bigint,
-   key AK_PK_ROLE_RES_OPER (ROLE_ID, RESOURCE_ID, OPERATION_ID)
+   unique key AK_SYS_ROLE_RES_OPER (ROLE_ID, RESOURCE_ID, OPERATION_ID)
 );
 
 /*==============================================================*/
@@ -130,7 +135,8 @@ create table SYS_USER
    USER_NAME            varchar(200),
    PASSWORD             varchar(200),
    STATUS               varchar(10),
-   primary key (USER_ID)
+   primary key (USER_ID),
+   unique key AK_SYS_USER_CODE (USER_CODE)
 );
 
 /*==============================================================*/
@@ -140,7 +146,7 @@ create table SYS_USER_DEPARTMENT
 (
    DEPART_ID            bigint,
    USER_ID              bigint,
-   key AK_PK_USER_DEP (DEPART_ID, USER_ID)
+   unique key AK_SYS_USER_DEPARTMENT (DEPART_ID, USER_ID)
 );
 
 /*==============================================================*/
@@ -150,7 +156,7 @@ create table SYS_USER_ROLE
 (
    USER_ID              bigint,
    ROLE_ID              bigint,
-   key AK_PK_USER_ROLE (USER_ID, ROLE_ID)
+   unique key AK_SYS_USER_ROLE (USER_ID, ROLE_ID)
 );
 
 alter table SYS_DICT_VALUE add constraint FK_FIELD_VALUE foreign key (DICT_ID)

@@ -80,7 +80,8 @@ create table SYS_DEPARTMENT  (
    PARENT_ID            INTEGER,
    STATUS               VARCHAR2(10),
    ORDER_NUM            INTEGER,
-   constraint PK_SYS_DEPARTMENT primary key (DEPART_ID)
+   constraint PK_SYS_DEPARTMENT primary key (DEPART_ID),
+   constraint AK_SYS_DEPARTMENT_COD_SYS_DEPA unique (DEPART_CODE)
 );
 
 /*==============================================================*/
@@ -91,7 +92,8 @@ create table SYS_DICT_FIELD  (
    DICT_NAME            VARCHAR2(200),
    DICT_CODE            VARCHAR2(200),
    STATUS               VARCHAR2(10),
-   constraint PK_SYS_DICT_FIELD primary key (DICT_ID)
+   constraint PK_SYS_DICT_FIELD primary key (DICT_ID),
+   constraint AK_SYS_DICT_FIELD_COD_SYS_DICT unique (DICT_CODE)
 );
 
 /*==============================================================*/
@@ -101,10 +103,11 @@ create table SYS_DICT_VALUE  (
    VALUE_ID             INTEGER                         not null,
    DICT_ID              INTEGER,
    VALUE_NAME           VARCHAR2(400),
-   VALUE                VARCHAR2(1000),
+   VALUE                VARCHAR2(100),
    ORDER_NUM            INTEGER,
    STATUS               VARCHAR2(10),
-   constraint PK_SYS_DICT_VALUE primary key (VALUE_ID)
+   constraint PK_SYS_DICT_VALUE primary key (VALUE_ID),
+   constraint AK_SYS_DICT_VALUE_DIC_SYS_DICT unique (DICT_ID, VALUE)
 );
 
 /*==============================================================*/
@@ -122,7 +125,8 @@ create table SYS_OPERATION  (
    OPERATION_CODE       VARCHAR2(100),
    OPERATION_NAME       VARCHAR2(200),
    STATUS               VARCHAR2(10),
-   constraint PK_SYS_OPERATION primary key (OPERATION_ID)
+   constraint PK_SYS_OPERATION primary key (OPERATION_ID),
+   constraint AK_SYS_OPERATION_CODE_SYS_OPER unique (OPERATION_CODE)
 );
 
 /*==============================================================*/
@@ -147,7 +151,8 @@ create table SYS_ROLE  (
    ROLE_CODE            VARCHAR2(100),
    ROLE_NAME            VARCHAR2(200),
    STATUS               VARCHAR2(10),
-   constraint PK_SYS_ROLE primary key (ROLE_ID)
+   constraint PK_SYS_ROLE primary key (ROLE_ID),
+   constraint AK_SYS_ROLE_CODE_SYS_ROLE unique (ROLE_CODE)
 );
 
 /*==============================================================*/
@@ -156,7 +161,7 @@ create table SYS_ROLE  (
 create table SYS_ROLE_DEPARTMENT  (
    DEPART_ID            INTEGER,
    ROLE_ID              INTEGER,
-   constraint AK_PK_ROLE_DEP_SYS_ROLE unique (DEPART_ID, ROLE_ID)
+   constraint AK_SYS_ROLE_DEPARTMEN_SYS_ROLE unique (DEPART_ID, ROLE_ID)
 );
 
 /*==============================================================*/
@@ -180,7 +185,7 @@ create table SYS_ROLE_RES_OPER  (
    ROLE_ID              INTEGER,
    RESOURCE_ID          INTEGER,
    OPERATION_ID         INTEGER,
-   constraint AK_PK_ROLE_RES_OPER_SYS_ROLE unique (ROLE_ID, RESOURCE_ID, OPERATION_ID)
+   constraint AK_SYS_ROLE_RES_OPER_SYS_ROLE unique (ROLE_ID, RESOURCE_ID, OPERATION_ID)
 );
 
 /*==============================================================*/
@@ -213,7 +218,8 @@ create table SYS_USER  (
    USER_NAME            VARCHAR2(200),
    PASSWORD             VARCHAR2(200),
    STATUS               VARCHAR2(10),
-   constraint PK_SYS_USER primary key (USER_ID)
+   constraint PK_SYS_USER primary key (USER_ID),
+   constraint AK_SYS_USER_CODE_SYS_USER unique (USER_CODE)
 );
 
 /*==============================================================*/
@@ -222,7 +228,7 @@ create table SYS_USER  (
 create table SYS_USER_DEPARTMENT  (
    DEPART_ID            INTEGER,
    USER_ID              INTEGER,
-   constraint AK_PK_USER_DEP_SYS_USER unique (DEPART_ID, USER_ID)
+   constraint AK_SYS_USER_DEPARTMEN_SYS_USER unique (DEPART_ID, USER_ID)
 );
 
 /*==============================================================*/
@@ -245,7 +251,7 @@ create index USER1_USERDEP_FK on SYS_USER_DEPARTMENT (
 create table SYS_USER_ROLE  (
    USER_ID              INTEGER,
    ROLE_ID              INTEGER,
-   constraint AK_PK_USER_ROLE_SYS_USER unique (USER_ID, ROLE_ID)
+   constraint AK_SYS_USER_ROLE_SYS_USER unique (USER_ID, ROLE_ID)
 );
 
 /*==============================================================*/

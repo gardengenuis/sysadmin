@@ -54,4 +54,6 @@ public interface ISysDictValueDAO extends IDAO<SysDictValue> {
 	 * @return
 	 */
 	public List<SysDictValue> getExceptDictValueList(Long dictId, String value);
+	
+	public List<SysDictValue> getDictValueByName(Long dictId, String name);
 }

@@ -5,8 +5,8 @@
 <Workspace>
 	<Local Expanded="Yes">
 		<Model Expanded="Yes" ID="{2308B529-9B56-4169-B818-7BE234AB8949}" Name="SysAdminModel" Type="{5F45F978-C4F3-4E35-A3FC-AF3318663A0F}" URL="SysAdminModel.ldm"/>
-		<Model Expanded="Yes" ID="{3E8AC882-B7DC-451B-B907-B7A8948D9407}" Name="SysAdminModel_10gR2" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="../../catering/doc/CateringModel_10gR2.pdm"/>
-		<Model Expanded="Yes" ID="{01DAB4FC-F21B-43A3-8A21-651812B67ADA}" Name="SysAdminModel_MySQL5" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="SysAdminModel_MySQL5.pdm"/>
+		<Model Expanded="Yes" ID="{0AE406C6-15CE-43D1-BD88-4F7765495410}" Name="SysAdminModel_MySQL5" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="SysAdminModel_MySQL5.pdm"/>
+		<Model Expanded="Yes" ID="{0A475C71-EB17-4375-94B6-B57EFF1B9BEF}" Name="SysAdminModel_10gR2" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="SysAdminModel_10gR2.pdm"/>
 	</Local>
 	<BrowserModule Name="Repository"/>
 </Workspace>
